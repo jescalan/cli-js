@@ -10,9 +10,16 @@ var days_to_cache_expire = exports.days_to_cache_expire = 2;
 
 switch (process.argv[2]) {
   case 'search':
-    read_packages(function(packages){
+    read_packages(function(pkg){
       header('search results');
-      print_array(search(packages, process.argv[3]));
+      print_array(search(pkg, process.argv[3]));
+      console.log('');
+    });
+    break;
+  case 'list':
+    read_packages(function(pkg){
+      header('all packages');
+      print_array(pkg.map(function(a){ return a.name }));
       console.log('');
     });
     break;
