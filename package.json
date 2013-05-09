@@ -1,6 +1,6 @@
 {
   "name": "cli-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Jeff Escalante",
   "dependencies": {
     "fuzzy": "0.1.x",
@@ -13,7 +13,7 @@
     "test": "mocha test"
   },
   "bin": {
-    "cli-js": "index.js"
+    "cdnjs": "index.js"
   },
   "repository": {
     "type": "git",

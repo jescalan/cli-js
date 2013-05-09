@@ -9,12 +9,12 @@ Tiny, fast command line interface to [cdnjs](http://cdnjs.com/) with fuzzy packa
 
 ### Usage
 
-`roots js list` - lists all packages    
-`roots js search [name]` - search packages for a keyword    
-`roots js info [name]` - more information on a specific package    
-`roots js copy [name]` - copies the cdnjs link to your clipboard    
-`roots js update` - updates the cache    
-`roots js install [name] [path]` - downloads the specified package to an optional path
+`cdnjs list` - lists all packages    
+`cdnjs search [name]` - search packages for a keyword    
+`cdnjs info [name]` - more information on a specific package    
+`cdnjs copy [name]` - copies the cdnjs link to your clipboard    
+`cdnjs update` - updates the cache    
+`cdnjs install [name] [path]` - downloads the specified package to an optional path
 
 ### Public API
 
