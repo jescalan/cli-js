@@ -1,0 +1,16 @@
+{
+  "name": "cli-js",
+  "version": "0.0.1",
+  "dependencies": {
+    "fuzzy": "0.1.x",
+    "lodash": "1.2.x",
+    "colors": "0.6.x"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}
