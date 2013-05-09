@@ -14,11 +14,7 @@ Tiny, fast command line interface to [cdnjs](http://cdnjs.com/) with fuzzy packa
 `roots js info [name]` - more information on a specific package    
 `roots js copy [name]` - copies the cdnjs link to your clipboard    
 `roots js update` - updates the cache    
-`roots js install [name]` - downloads the specified package to a folder called `components`
-
-   - if it's a single javascript file, only downloads the minified version
-   - if you want all versions, use `--all` at the end
-   - if there are multiple scripts and/or css files, puts them in a folder called `[name]`
+`roots js install [name] [path]` - downloads the specified package to an optional path
 
 ### Public API
 
@@ -46,6 +42,9 @@ cli_js.find('jquery', function(result){ console.log(result); });
 
 // get the cdn hosted url for a specific package
 cli_js.get_url('jquery', function(url){ console.log(url); });
+
+// download the specified package to the specified path
+cli_js.download('jquery', 'components', function(){ console.log('done'); })
 ```
 
 It should be noted that the cacheing is handled internally, so no need to ever worry about it. If you do want to update the cache on demand, you can use the `cache_packages` function.
