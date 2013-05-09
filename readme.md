@@ -32,10 +32,10 @@ cli_js.url = 'http://cdnjs.com/packages.json';
 cli_js.cache_path = '/tmp/cdnjs-cache.json';
 cli_js.days_to_cache_expire = 2;
 
-// read package json (cacheing handled internally)
+// read all packages from cdnjs, returns array of objects
 cli_js.read_packages(function(pkg){ console.log(pkg); });
 
-// update cache
+// update cache regardless of cache expire
 cli_js.cache_packages(function(){ console.log('done'); });
 
 // fuzzy search, returns array of results
@@ -47,3 +47,5 @@ cli_js.find('jquery', function(result){ console.log(result); });
 // get the cdn hosted url for a specific package
 cli_js.get_url('jquery', function(url){ console.log(url); });
 ```
+
+It should be noted that the cacheing is handled internally, so no need to ever worry about it. If you do want to update the cache on demand, you can use the `cache_packages` function.
