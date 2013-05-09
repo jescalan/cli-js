@@ -96,13 +96,15 @@ function get_url(query, cb){
   });
 }
 
+exports.get_url = get_url;
+
 // 
 // download
 // 
 
-function download()
-
-exports.get_url = get_url;
+function download(){
+  console.log('in progress');
+}
 
 // 
 // help
