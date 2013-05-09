@@ -1,6 +1,7 @@
 {
   "name": "cli-js",
   "version": "0.0.1",
+  "author": "Jeff Escalante",
   "dependencies": {
     "fuzzy": "0.1.x",
     "lodash": "1.2.x",
@@ -11,8 +12,15 @@
   "scripts": {
     "test": "mocha test"
   },
+  "bin": {
+    "cli-js": "index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jenius/cli-js.git"
+  },
   "engines": {
-    "node": "0.8.x",
-    "npm": "1.1.x"
-  }
+    "node": ">=0.8.x"
+  },
+  "preferGlobal": true
 }

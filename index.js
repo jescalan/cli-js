@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var http = require('http'),
     fs = require('fs'),
     path = require('path'),
