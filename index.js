@@ -19,7 +19,9 @@ switch (process.argv[2]) {
 function search(packages, query){
   var names = packages.map(function(a){ return a.name });
   var results = fuzzy.filter(query, names).map(function(a){ return a.string });
-  console.log(results)
+  header('search results')
+  results.forEach(function(result){ console.log(result); });
+  console.log('');
 }
 
 function read_packages(cb){
@@ -45,11 +47,17 @@ function cache_packages(cb){
 }
 
 function help(){
-  console.log('');
-  console.log('------------'.green);
-  console.log('cli-js usage'.green);
-  console.log('------------'.green);
-  console.log('');
+  header('cli-js usage');
   console.log('search [name]: '.bold + 'fuzzy search the package repository');
+  console.log('');
+}
+
+function header(text){
+  var line = '';
+  for (var i = 0; i < text.length; i++){ line += '-' };
+  console.log('');
+  console.log(line.green);
+  console.log(text.green);
+  console.log(line.green);
   console.log('');
 }
