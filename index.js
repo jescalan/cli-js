@@ -2,6 +2,7 @@ var http = require('http'),
     fs = require('fs'),
     _ = require('lodash'),
     colors = require('colors'),
+    copy_paste = require('copy-paste'),
     fuzzy = require('fuzzy');
 
 var url = exports.url = 'http://cdnjs.com/packages.json';
@@ -30,7 +31,7 @@ switch (process.argv[2]) {
     break;
   case 'info':
     read_packages(function(pkg){
-      var result = info(pkg, process.argv[3]);
+      var result = find(pkg, process.argv[3]);
       if (result) {
         print_info(result);  
       } else {
@@ -40,6 +41,14 @@ switch (process.argv[2]) {
         console.log('');
       }
       
+    });
+    break;
+  case 'copy':
+    read_packages(function(pkg){
+      var result = get_url(pkg, process.argv[3]);
+      copy(result);
+      console.log('');
+      console.log(result.green);
     });
     break;
   default:
@@ -58,12 +67,22 @@ function search(packages, query){
 exports.search = search;
 
 // 
-// info
+// find
 // 
 
-function info(packages, query){
+function find(packages, query){
   var result = _.where(packages, { name: query })
   if (result[0]){ return result[0] } else { return false; }
+}
+
+// 
+// get_url
+// 
+
+function get_url(packages, query){
+  var result = find(packages, query);
+  var base = '//cdnjs.cloudflare.com/ajax/libs/'
+  return base + result.name + '/' + result.version + '/' + result.filename
 }
 
 // 
