@@ -82,6 +82,8 @@ function find(packages, query){
   if (result[0]){ return result[0] } else { return false; }
 }
 
+exports.find = find;
+
 // 
 // get_url
 // 
@@ -91,6 +93,8 @@ function get_url(packages, query){
   var base = '//cdnjs.cloudflare.com/ajax/libs/'
   return base + result.name + '/' + result.version + '/' + result.filename
 }
+
+exports.get_url = get_url;
 
 // 
 // help
@@ -127,6 +131,8 @@ function cache_packages(cb){
   var file = fs.createWriteStream(cache_path);
   http.get(url, function(data){ data.pipe(file); cb() });
 }
+
+exports.cache_packages = cache_packages;
 
 // 
 // print utilities
