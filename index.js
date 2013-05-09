@@ -11,8 +11,13 @@ var days_to_cache_expire = exports.days_to_cache_expire = 2;
 switch (process.argv[2]) {
   case 'search':
     read_packages(function(pkg){
+      var results = search(pkg, process.argv[3])
       header('search results');
-      print_array(search(pkg, process.argv[3]));
+      if (results.length > 0){
+        print_array(results);
+      } else {
+        console.log('no results found'.red);
+      }
       console.log('');
     });
     break;
@@ -23,9 +28,27 @@ switch (process.argv[2]) {
       console.log('');
     });
     break;
+  case 'info':
+    read_packages(function(pkg){
+      var result = info(pkg, process.argv[3]);
+      if (result) {
+        print_info(result);  
+      } else {
+        console.log('');
+        console.log('no results found'.red);
+        console.log('maybe try a ' + 'search'.bold + '?')
+        console.log('');
+      }
+      
+    });
+    break;
   default:
     help();
 }
+
+// 
+// search
+// 
 
 function search(packages, query){
   var names = packages.map(function(a){ return a.name });
@@ -33,6 +56,29 @@ function search(packages, query){
 }
 
 exports.search = search;
+
+// 
+// info
+// 
+
+function info(packages, query){
+  var result = _.where(packages, { name: query })
+  if (result[0]){ return result[0] } else { return false; }
+}
+
+// 
+// help
+// 
+
+function help(){
+  header('cli-js usage');
+  console.log('search [name]: '.bold + 'fuzzy search the package repository');
+  console.log('');
+}
+
+// 
+// read and cache
+// 
 
 function read_packages(cb){
   check_cache_expire(function(){
@@ -56,11 +102,9 @@ function cache_packages(cb){
   http.get(url, function(data){ data.pipe(file); cb() });
 }
 
-function help(){
-  header('cli-js usage');
-  console.log('search [name]: '.bold + 'fuzzy search the package repository');
-  console.log('');
-}
+// 
+// print utilities
+// 
 
 function header(text){
   var line = '';
@@ -74,4 +118,22 @@ function header(text){
 
 function print_array(ary){
   ary.forEach(function(a){ console.log(a) });
+}
+
+function print_info(obj){
+  header(obj.name);
+  console.log(obj.description);
+  console.log('');
+  console.log('Current Version: '.bold + obj.version);
+  console.log('Docs: '.bold + obj.homepage);
+
+  if (obj.maintainers){
+    console.log('Maintainers: '.bold)
+    obj.maintainers.forEach(function(m){
+      console.log('  - ' + m.name);
+    });
+  }
+
+  console.log('')
+
 }
