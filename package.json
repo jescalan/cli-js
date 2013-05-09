@@ -5,7 +5,8 @@
     "fuzzy": "0.1.x",
     "lodash": "1.2.x",
     "colors": "0.6.x",
-    "copy-paste": "0.0.x"
+    "copy-paste": "0.0.x",
+    "async": "~0.2.8"
   },
   "scripts": {
     "test": "mocha test"
