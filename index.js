@@ -4,13 +4,17 @@ var http = require('http'),
     colors = require('colors'),
     fuzzy = require('fuzzy');
 
-var url = 'http://cdnjs.com/packages.json';
-var cache_path = '/tmp/cdnjs-cache.json';
-var days_to_cache_expire = 2
+var url = exports.url = 'http://cdnjs.com/packages.json';
+var cache_path = exports.cache_path = '/tmp/cdnjs-cache.json';
+var days_to_cache_expire = exports.days_to_cache_expire = 2;
 
 switch (process.argv[2]) {
   case 'search':
-    read_packages(function(packages){ search(packages, process.argv[3]) });
+    read_packages(function(packages){
+      header('search results');
+      print_array(search(packages, process.argv[3]));
+      console.log('');
+    });
     break;
   default:
     help();
@@ -18,11 +22,10 @@ switch (process.argv[2]) {
 
 function search(packages, query){
   var names = packages.map(function(a){ return a.name });
-  var results = fuzzy.filter(query, names).map(function(a){ return a.string });
-  header('search results')
-  results.forEach(function(result){ console.log(result); });
-  console.log('');
+  return fuzzy.filter(query, names).map(function(a){ return a.string });
 }
+
+exports.search = search;
 
 function read_packages(cb){
   check_cache_expire(function(){
@@ -60,4 +63,8 @@ function header(text){
   console.log(text.green);
   console.log(line.green);
   console.log('');
+}
+
+function print_array(ary){
+  ary.forEach(function(a){ console.log(a) });
 }
