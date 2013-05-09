@@ -155,6 +155,12 @@ function download(query, base_path, cb){
 function help(){
   header('cli-js usage');
   console.log('search [name]: '.bold + 'fuzzy search the package repository');
+  console.log('list: '.bold + 'lists all packages');
+  console.log('search [name]: '.bold + 'search packages for a keyword');
+  console.log('info [name]: ' + 'more information on a specific package');
+  console.log('copy [name]: '.bold + 'copies the cdnjs link to your clipboard');
+  console.log('update: '.bold + 'updates the cache');
+  console.log('install [name] [path]: '.bold + 'downloads the specified package to an optional path');
   console.log('');
 }
 
