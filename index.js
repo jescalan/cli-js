@@ -51,6 +51,13 @@ switch (process.argv[2]) {
       console.log(result.green);
     });
     break;
+  case 'update':
+    cache_packages(function(){
+      console.log('');
+      console.log('updated'.green);
+      console.log('');
+    });
+    break;
   default:
     help();
 }
