@@ -11,8 +11,7 @@ var days_to_cache_expire = exports.days_to_cache_expire = 2;
 
 switch (process.argv[2]) {
   case 'search':
-    read_packages(function(pkg){
-      var results = search(pkg, process.argv[3])
+    search(process.argv[3], function(results){
       header('search results');
       if (results.length > 0){
         print_array(results);
@@ -30,8 +29,7 @@ switch (process.argv[2]) {
     });
     break;
   case 'info':
-    read_packages(function(pkg){
-      var result = find(pkg, process.argv[3]);
+    find(process.argv[3], function(result){
       if (result) {
         print_info(result);  
       } else {
@@ -40,14 +38,11 @@ switch (process.argv[2]) {
         console.log('maybe try a ' + 'search'.bold + '?')
         console.log('');
       }
-      
     });
     break;
   case 'copy':
-    read_packages(function(pkg){
-      var result = get_url(pkg, process.argv[3]);
+    get_url(process.argv[3], function(result){
       copy(result);
-      console.log('');
       console.log(result.green);
     });
     break;
@@ -66,9 +61,11 @@ switch (process.argv[2]) {
 // search
 // 
 
-function search(packages, query){
-  var names = packages.map(function(a){ return a.name });
-  return fuzzy.filter(query, names).map(function(a){ return a.string });
+function search(query, cb){
+  read_packages(function(pkg){
+    var names = pkg.map(function(a){ return a.name });
+    cb(fuzzy.filter(query, names).map(function(a){ return a.string }));
+  });
 }
 
 exports.search = search;
@@ -77,9 +74,11 @@ exports.search = search;
 // find
 // 
 
-function find(packages, query){
-  var result = _.where(packages, { name: query })
-  if (result[0]){ return result[0] } else { return false; }
+function find(query, cb){
+  read_packages(function(pkg){
+    var result = _.where(pkg, { name: query })
+    if (result[0]){ cb(result[0]) } else { cb(false) }
+  });
 }
 
 exports.find = find;
@@ -89,9 +88,12 @@ exports.find = find;
 // 
 
 function get_url(packages, query){
-  var result = find(packages, query);
-  var base = '//cdnjs.cloudflare.com/ajax/libs/'
-  return base + result.name + '/' + result.version + '/' + result.filename
+  read_packages(function(pkg){
+    find(query, function(result){
+      var base = '//cdnjs.cloudflare.com/ajax/libs/';
+      cb(base + result.name + '/' + result.version + '/' + result.filename);
+    });
+  });
 }
 
 exports.get_url = get_url;
@@ -115,6 +117,8 @@ function read_packages(cb){
     cb(JSON.parse(fs.readFileSync(cache_path)).packages);
   });
 }
+
+exports.read_packages = read_packages;
 
 function check_cache_expire(cb){
   var last_cached = fs.statSync(cache_path).mtime;

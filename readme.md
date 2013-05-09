@@ -22,4 +22,28 @@ Tiny, fast command line interface to [cdnjs](http://cdnjs.com/) with fuzzy packa
 
 ### Public API
 
-coming soon...
+I've made sure to keep a very clean separation in place between the utilities that process data and those that print results. Because of this, it's easy for other node app authors to integrate cli-js into whatever app it may be needed in and customize the output how they like. The public api gives direct access to the functions below:
+
+```js
+var cli_js = require('cli-js');
+
+// set up config variables (defaults shown below)
+cli_js.url = 'http://cdnjs.com/packages.json';
+cli_js.cache_path = '/tmp/cdnjs-cache.json';
+cli_js.days_to_cache_expire = 2;
+
+// read package json (cacheing handled internally)
+cli_js.read_packages(function(pkg){ console.log(pkg); });
+
+// update cache
+cli_js.cache_packages(function(){ console.log('done'); });
+
+// fuzzy search, returns array of results
+cli_js.search('jquery', function(results){ console.log(results); });
+
+// find one specific package by name, returns an object
+cli_js.find('jquery', function(result){ console.log(result); });
+
+// get the cdn hosted url for a specific package
+cli_js.get_url('jquery', function(url){ console.log(url); });
+```
