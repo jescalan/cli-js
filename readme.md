@@ -1,7 +1,7 @@
 cli-js
 ------
 
-Tiny, fast command line interface to cdnjs with fuzzy package search and a public api for easy integration into other node apps.
+Tiny, fast command line interface to [cdnjs](http://cdnjs.com/) with fuzzy package search and a public api for easy integration into other node apps.
 
 ### Installation
 
