@@ -36,7 +36,7 @@ switch (process.argv[2]) {
   case 'info':
     find(process.argv[3], function(result){
       if (result) {
-        print_info(result);  
+        print_info(result);
       } else {
         console.log('');
         console.log('no results found'.red);
@@ -75,9 +75,9 @@ switch (process.argv[2]) {
     help();
 }
 
-// 
+//
 // search
-// 
+//
 
 function search(query, cb){
   read_packages(function(pkg){
@@ -88,9 +88,9 @@ function search(query, cb){
 
 exports.search = search;
 
-// 
+//
 // find
-// 
+//
 
 function find(query, cb){
   read_packages(function(pkg){
@@ -101,9 +101,9 @@ function find(query, cb){
 
 exports.find = find;
 
-// 
+//
 // get_url
-// 
+//
 
 function get_url(query, cb){
   read_packages(function(pkg){
@@ -121,9 +121,9 @@ function format_url(obj, file){
 
 exports.get_url = get_url;
 
-// 
+//
 // download
-// 
+//
 
 function download(query, base_path, cb){
   if (typeof base_path == 'function'){
@@ -148,25 +148,25 @@ function download(query, base_path, cb){
 
 }
 
-// 
+//
 // help
-// 
+//
 
 function help(){
   header('cli-js usage');
   console.log('search [name]: '.bold + 'fuzzy search the package repository');
   console.log('list: '.bold + 'lists all packages');
   console.log('search [name]: '.bold + 'search packages for a keyword');
-  console.log('info [name]: ' + 'more information on a specific package');
+  console.log('info [name]: '.bold + 'more information on a specific package');
   console.log('copy [name]: '.bold + 'copies the cdnjs link to your clipboard');
   console.log('update: '.bold + 'updates the cache');
   console.log('install [name] [path]: '.bold + 'downloads the specified package to an optional path');
   console.log('');
 }
 
-// 
+//
 // read and cache
-// 
+//
 
 function read_packages(cb){
   check_cache_expire(function(){
@@ -194,9 +194,9 @@ function cache_packages(cb){
 
 exports.cache_packages = cache_packages;
 
-// 
+//
 // print utilities
-// 
+//
 
 function header(text){
   var line = '';
