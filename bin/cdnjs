@@ -74,9 +74,9 @@ function update(){
 }
 
 function install(query, path){
-  var cb = function(results){
+  var cb = function(err, result){
     console.log('');
-    console.log(results.name.green + ' installed'.green);
+    console.log(result.name.green + ' installed'.green);
     console.log('');
   }
 
