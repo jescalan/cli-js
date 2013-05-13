@@ -24,33 +24,51 @@ I've made sure to keep a very clean separation in place between the utilities th
 var cli_js = require('cli-js');
 
 // set up config variables (defaults shown below)
-cli_js.url = 'http://cdnjs.com/packages.json';
-cli_js.cache_path = '/tmp/cdnjs-cache.json';
-cli_js.days_to_cache_expire = 2;
+cli_js.config.url = 'http://cdnjs.com/packages.json';
+cli_js.config.cache_path = '/tmp/cdnjs-cache.json';
+cli_js.config.days_to_cache_expire = 2;
+cli_js.config.download_path = process.cwd();
 
 // read all packages from cdnjs, returns array of objects
-cli_js.read_packages(function(pkg){ console.log(pkg); });
+cli_js.commands.list(function(pkg){
+  console.log(pkg);
+});
 
 // update cache regardless of cache expire
-cli_js.cache_packages(function(){ console.log('done'); });
+cli_js.cache.refresh(function(){
+  console.log('done');
+});
 
 // fuzzy search, returns array of results
-cli_js.search('jquery', function(results){ console.log(results); });
+cli_js.commands.search('jquery', function(results){
+  console.log(results);
+});
 
 // find one specific package by name, returns an object
-cli_js.find('jquery', function(result){ console.log(result); });
+cli_js.commands.find('jquery', function(result){
+  console.log(result);
+});
 
 // get the cdn hosted url for a specific package
-cli_js.get_url('jquery', function(url){ console.log(url); });
+cli_js.commands.get_url('jquery', function(url){
+  console.log(url);
+});
 
 // download the specified package to the specified path
-cli_js.download('jquery', './components', function(result){ console.log('done'); })
+cli_js.commands.download('jquery', './components', function(err, package){
+  console.log('installed ' + package.name);
+});
 
 // or skip the second parameter and it will default to the download path
-cli_js.download('jquery', function(err, result){ console.log('done'); })
+cli_js.commands.download('jquery', function(err, package){
+  console.log('installed ' + package.name);
+});
+
 ```
 
-It should be noted that the cacheing is handled internally, so no need to ever worry about it. If you do want to update the cache on demand, you can use the `cache_packages` function.
+It should be noted that the cacheing is handled internally, so no need to ever worry about it. If you do want to update the cache on demand, you can use the `cache.refresh()` function.
+
+There are a few more functions that are not documented here that I feel like it's very unlikely will be used, but if you want to check them out, it's a pretty small and clearly structured project and it should be no problem finding what you need in the source : )
 
 ### License
 
