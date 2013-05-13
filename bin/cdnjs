@@ -9,6 +9,7 @@ var cmd = {
   info: find,
   find: find,
   copy: copy,
+  update: update
 }
 
 try {
@@ -83,6 +84,14 @@ function copy(query){
     copypaste.copy(result, function(){});
     console.log('');
     console.log(result.green);
+    console.log('');
+  });
+}
+
+function update(){
+  clijs.cache.refresh(function(){
+    console.log('');
+    console.log('updated'.green);
     console.log('');
   });
 }

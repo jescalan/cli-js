@@ -1,5 +1,6 @@
 should = require 'should'
 clijs = require '../index'
+fs = require 'fs'
 
 describe 'search', ->
 
@@ -46,4 +47,15 @@ describe 'copy', ->
   it 'should return false for an invalid query', (done) ->
     clijs.commands.get_url 'asdsad', (res) ->
       res.should.be.false
+      done()
+
+describe 'update', ->
+
+  it 'should update the cached package file', (done) ->
+
+    mtime_before = fs.statSync(clijs.config.cache_path).mtime
+
+    clijs.cache.refresh ->
+      mtime_after = fs.statSync(clijs.config.cache_path).mtime
+      mtime_before.should.be.below mtime_after
       done()
