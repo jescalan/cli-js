@@ -1,6 +1,8 @@
 cli-js
 ------
 
+[![Build Status](https://travis-ci.org/jenius/cli-js.png?branch=master)](https://travis-ci.org/jenius/cli-js)
+
 Small, fast, and well-tested command line interface to [cdnjs](http://cdnjs.com/) with fuzzy package search and a public api for easy integration into other node apps.
 
 ### Installation
