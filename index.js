@@ -170,7 +170,7 @@ function help(){
 
 function read_packages(cb){
   check_cache_expire(function(){
-    cb(JSON.parse(fs.readFileSync(cache_path)).packages);
+    cb(JSON.parse(fs.readFileSync(cache_path, 'utf8')).packages);
   });
 }
 
