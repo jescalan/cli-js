@@ -7,13 +7,18 @@
     "lodash": "1.2.x",
     "colors": "0.6.x",
     "copy-paste": "0.0.x",
-    "async": "~0.2.8"
+    "async": "0.2.x"
+  },
+  "devDependencies": {
+    "mocha": "latest",
+    "should": "latest",
+    "coffee-script": "latest"
   },
   "scripts": {
     "test": "mocha test"
   },
   "bin": {
-    "cdnjs": "index.js"
+    "cdnjs": "bin/cdnjs"
   },
   "repository": {
     "type": "git",
