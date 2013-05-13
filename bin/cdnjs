@@ -9,38 +9,15 @@ var cmd = {
   info: find,
   find: find,
   copy: copy,
-  update: update
+  update: update,
+  install: install
 }
 
 try {
-  cmd[process.argv[2]](process.argv[3]);
+  cmd[process.argv[2]](process.argv[3], process.argv[4]);
 } catch(err) {
   clijs.commands.help()
 }
-
-  // case 'update':
-  //   cache_packages(function(){
-  //     console.log('');
-  //     console.log('updated'.green);
-  //     console.log('');
-  //   });
-  //   break;
-  // case 'download':
-  //   var cb = function(results){
-  //     console.log('');
-  //     console.log(results.name.green + ' installed'.green);
-  //     console.log('');
-  //   }
-
-  //   if (process.argv[4]){
-  //     download(process.argv[3], process.argv[4], cb);
-  //   } else {
-  //     download(process.argv[3], cb);
-  //   }
-  //   break;
-//   default:
-//     clijs.commands.help();
-// }
 
 // 
 // implementation
@@ -94,4 +71,18 @@ function update(){
     console.log('updated'.green);
     console.log('');
   });
+}
+
+function install(query, path){
+  var cb = function(results){
+    console.log('');
+    console.log(results.name.green + ' installed'.green);
+    console.log('');
+  }
+
+  if (path){
+    clijs.commands.download(query, path, cb);
+  } else {
+    clijs.commands.download(query, cb);
+  }
 }
