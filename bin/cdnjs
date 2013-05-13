@@ -14,25 +14,25 @@ switch (process.argv[2]) {
       console.log('');
     });
     break;
-  // case 'list':
-  //   read_packages(function(pkg){
-  //     header('all packages');
-  //     print_array(pkg.map(function(a){ return a.name }));
-  //     console.log('');
-  //   });
-  //   break;
-  // case 'info':
-  //   find(process.argv[3], function(result){
-  //     if (result) {
-  //       print_info(result);
-  //     } else {
-  //       console.log('');
-  //       console.log('no results found'.red);
-  //       console.log('maybe try a ' + 'search'.bold + '?')
-  //       console.log('');
-  //     }
-  //   });
-  //   break;
+  case 'list':
+    clijs.cache.read(function(pkg){
+      clijs.print.header('all packages');
+      clijs.print.array(pkg.map(function(a){ return a.name }));
+      console.log('');
+    });
+    break;
+  case 'info':
+    clijs.commands.find(process.argv[3], function(result){
+      if (result) {
+        clijs.print.info(result);
+      } else {
+        console.log('');
+        console.log('no results found'.red);
+        console.log('maybe try a ' + 'search'.bold + '?')
+        console.log('');
+      }
+    });
+    break;
   // case 'copy':
   //   get_url(process.argv[3], function(result){
   //     copy(result);

@@ -10,19 +10,7 @@ var http = require('http'),
 
 exports.commands = require('./lib/commands');
 exports.print = require('./lib/print_utils');
-
-//
-// find
-//
-
-function find(query, cb){
-  read_packages(function(pkg){
-    var result = _.where(pkg, { name: query })
-    if (result[0]){ cb(result[0]) } else { cb(false) }
-  });
-}
-
-exports.find = find;
+exports.cache = require('./lib/cache');
 
 //
 // get_url

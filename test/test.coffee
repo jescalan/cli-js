@@ -14,3 +14,23 @@ describe 'search', ->
       res.should.be.an.array
       res.length.should.be.below 1
       done()
+
+describe 'list', ->
+
+  it 'should return an array of all packages', (done) ->
+    cdnjs.commands.list (res) ->
+      res.should.be.an.array
+      res.length.should.be.above 1
+      done()
+
+describe 'info', ->
+
+  it 'should find a single result for a valid query', (done) ->
+    cdnjs.commands.find 'jquery', (res) ->
+      res.should.be.an.object
+      res.name.should.equal 'jquery'
+      done()
+
+  it 'should return false for an invalid query', ->
+    cdnjs.commands.find 'dasasd', (res) ->
+      res.should.be.false
