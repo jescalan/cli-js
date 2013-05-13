@@ -79,5 +79,5 @@ describe 'download', ->
     clijs.commands.download 'jquery', 'components', (err) ->
       should.not.exist(err)
       fs.existsSync('./components/jquery').should.be.true
-      rimraf.sync('./components/jquery')
+      rimraf.sync('./components')
       done()

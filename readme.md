@@ -1,7 +1,7 @@
 cli-js
 ------
 
-Tiny, fast command line interface to [cdnjs](http://cdnjs.com/) with fuzzy package search and a public api for easy integration into other node apps.
+Small, fast, and well-tested command line interface to [cdnjs](http://cdnjs.com/) with fuzzy package search and a public api for easy integration into other node apps.
 
 ### Installation
 
@@ -47,7 +47,7 @@ cli_js.get_url('jquery', function(url){ console.log(url); });
 cli_js.download('jquery', './components', function(result){ console.log('done'); })
 
 // or skip the second parameter and it will default to the download path
-cli_js.download('jquery', function(result){ console.log('done'); })
+cli_js.download('jquery', function(err){ console.log('done'); })
 ```
 
 It should be noted that the cacheing is handled internally, so no need to ever worry about it. If you do want to update the cache on demand, you can use the `cache_packages` function.
