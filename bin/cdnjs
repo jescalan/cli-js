@@ -1,44 +1,22 @@
 #!/usr/bin/env node
 
-var clijs = require('../');
+var clijs = require('../')
+    copypaste = require('copy-paste').noConflict();
 
-switch (process.argv[2]) {
-  case 'search':
-    clijs.commands.search(process.argv[3], function(results){
-      clijs.print.header('search results');
-      if (results.length > 0){
-        clijs.print.array(results);
-      } else {
-        console.log('no results found'.red);
-      }
-      console.log('');
-    });
-    break;
-  case 'list':
-    clijs.cache.read(function(pkg){
-      clijs.print.header('all packages');
-      clijs.print.array(pkg.map(function(a){ return a.name }));
-      console.log('');
-    });
-    break;
-  case 'info':
-    clijs.commands.find(process.argv[3], function(result){
-      if (result) {
-        clijs.print.info(result);
-      } else {
-        console.log('');
-        console.log('no results found'.red);
-        console.log('maybe try a ' + 'search'.bold + '?')
-        console.log('');
-      }
-    });
-    break;
-  // case 'copy':
-  //   get_url(process.argv[3], function(result){
-  //     copy(result);
-  //     console.log(result.green);
-  //   });
-  //   break;
+var cmd = {
+  search: search,
+  list: list,
+  info: find,
+  find: find,
+  copy: copy,
+}
+
+try {
+  cmd[process.argv[2]](process.argv[3]);
+} catch(err) {
+  clijs.commands.help()
+}
+
   // case 'update':
   //   cache_packages(function(){
   //     console.log('');
@@ -59,6 +37,52 @@ switch (process.argv[2]) {
   //     download(process.argv[3], cb);
   //   }
   //   break;
-  default:
-    clijs.commands.help();
+//   default:
+//     clijs.commands.help();
+// }
+
+// 
+// implementation
+// 
+
+function search(query){
+  clijs.commands.search(query, function(results){
+    clijs.print.header('search results');
+    if (results.length > 0){
+      clijs.print.array(results);
+    } else {
+      console.log('no results found'.red);
+    }
+    console.log('');
+  });
+}
+
+function list(){
+  clijs.cache.read(function(pkg){
+    clijs.print.header('all packages');
+    clijs.print.array(pkg.map(function(a){ return a.name }));
+    console.log('');
+  });
+}
+
+function find(query){
+  clijs.commands.find(query, function(result){
+    if (result) {
+      clijs.print.info(result);
+    } else {
+      console.log('');
+      console.log('no results found'.red);
+      console.log('maybe try a ' + 'search'.bold + '?')
+      console.log('');
+    }
+  });
+}
+
+function copy(query){
+  clijs.commands.get_url(query, function(result){
+    copypaste.copy(result, function(){});
+    console.log('');
+    console.log(result.green);
+    console.log('');
+  });
 }

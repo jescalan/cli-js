@@ -24,12 +24,6 @@ function get_url(query, cb){
   });
 }
 
-function format_url(obj, file){
-  var base = '//cdnjs.cloudflare.com/ajax/libs/';
-  var file = file ? file : obj.filename;
-  return base + obj.name + '/' + obj.version + '/' + file;
-}
-
 exports.get_url = get_url;
 
 //
