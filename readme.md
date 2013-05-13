@@ -70,7 +70,7 @@ cli_js.commands.download('jquery', function(err, package){
 
 It should be noted that the cacheing is handled internally, so no need to ever worry about it. If you do want to update the cache on demand, you can use the `cache.refresh()` function.
 
-There are a few more functions that are not documented here that I feel like it's very unlikely will be used, but if you want to check them out, it's a pretty small and clearly structured project and it should be no problem finding what you need in the source : )
+There are a few more functions that are not documented here that I feel like it's very unlikely will be used, but if you want to check them out, it's a pretty small and clearly structured project and it should be no problem finding what you need in the source :smile:
 
 ### License
 
