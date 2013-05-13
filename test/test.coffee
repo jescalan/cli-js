@@ -1,6 +1,7 @@
 should = require 'should'
-clijs = require '../index'
 fs = require 'fs'
+rimraf = require 'rimraf'
+clijs = require '../index'
 
 describe 'search', ->
 
@@ -58,4 +59,25 @@ describe 'update', ->
     clijs.cache.refresh ->
       mtime_after = fs.statSync(clijs.config.cache_path).mtime
       mtime_before.should.be.below mtime_after
+      done()
+
+describe 'download', ->
+
+  it 'should download the a valid package to the root dir', (done) ->
+    clijs.commands.download 'jquery', (err) ->
+      should.not.exist(err)
+      fs.existsSync('./jquery').should.be.true
+      rimraf.sync('./jquery')
+      done()
+
+  it 'should return false if the query is invalid', (done) ->
+    clijs.commands.download 'sdfsdfsdf', (err) ->
+      should.exist(err)
+      done()
+
+  it 'should download a package to another dir if specified', (done) ->
+    clijs.commands.download 'jquery', 'components', (err) ->
+      should.not.exist(err)
+      fs.existsSync('./components/jquery').should.be.true
+      rimraf.sync('./components/jquery')
       done()

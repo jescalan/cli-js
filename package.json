@@ -12,7 +12,8 @@
   "devDependencies": {
     "mocha": "latest",
     "should": "latest",
-    "coffee-script": "latest"
+    "coffee-script": "latest",
+    "rimraf": "latest"
   },
   "scripts": {
     "test": "mocha test"
