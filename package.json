@@ -1,13 +1,14 @@
 {
   "name": "cli-js",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Jeff Escalante",
   "dependencies": {
     "fuzzy": "0.1.x",
     "lodash": "1.2.x",
     "colors": "0.6.x",
     "copy-paste": "0.0.x",
-    "async": "0.2.x"
+    "async": "0.2.x",
+    "request": "2.21.x"
   },
   "devDependencies": {
     "mocha": "latest",
